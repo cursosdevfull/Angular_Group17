@@ -1,0 +1,52 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: whitesmoke;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
+}
+
+.container__logo {
+  width: 100%;
+  max-width: 200px;
+}
+
+.container__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 0;
+  gap: 20px;
+}
+
+.form__element {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.element__label {
+  font-weight: 500;
+}
+
+.element__input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.element__button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}

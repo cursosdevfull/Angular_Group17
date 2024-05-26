@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { PageLoginComponent } from './core/presentation/components/smart/page-login/page-login.component';
 
 @Component({
   selector: 'cdev-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  imports: [PageLoginComponent],
 })
 export class AppComponent {
   title = 'appCDev';
