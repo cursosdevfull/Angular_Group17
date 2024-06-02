@@ -1,0 +1,19 @@
+/*
+Estilo para crear un div con borde y sombra
+*/
+.container {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 128px - 40px);
+}
+
+.container__content {
+  border: 0 solid #fffbff;
+  border-radius: 12px;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  margin: 20px 0;
+  height: 100%;
+  width: 95%;
+}
