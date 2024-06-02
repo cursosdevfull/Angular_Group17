@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { CustomValidators } from '../../../../services/custom-validators';
+import { CustomValidators } from '../../../services/custom-validators';
 
 @Component({
   selector: 'cdev-login-form',
