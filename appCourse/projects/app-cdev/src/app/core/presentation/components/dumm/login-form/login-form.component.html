@@ -1,107 +1,126 @@
 <div class="container">
-  <img
-    class="container__logo"
-    src="assets/images/logo-horizontal.png"
-    width="1933"
-    height="383"
-    alt=""
-  />
-  <form class="container__form" [formGroup]="formGroup">
-    <div class="form__element">
-      <label class="element__label" for="email">Email</label>
-      <input
-        type="text"
-        class="element__input"
-        name="email"
-        formControlName="email"
+  <div
+    class="container__stages"
+    [ngClass]="{ 'container__stages--move': moveFormToLeft }"
+    (transitionend)="setFocusOnInputToken()"
+  >
+    <div class="stages__login">
+      <img
+        class="login__logo"
+        src="assets/images/logo-horizontal.png"
+        width="1933"
+        height="383"
+        alt=""
       />
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('email')?.touched &&
-          formGroup.get('email')?.hasError('required')
-        "
-        >Email is required</span
-      >
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('email')?.touched &&
-          formGroup.get('email')?.hasError('pattern')
-        "
-        >Format is not email</span
-      >
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('email')?.touched &&
-          formGroup.get('email')?.hasError('onlyEmailCorporate')
-        "
-        >Only corporate email</span
-      >
-    </div>
-    <div class="form__element">
-      <label class="element__label" for="password">Password</label>
-      <input
-        type="password"
-        class="element__input"
-        name="password"
-        formControlName="password"
-      />
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('password')?.touched &&
-          formGroup.get('password')?.hasError('required')
-        "
-        >Password is required</span
-      >
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('password')?.touched &&
-          formGroup.get('password')?.hasError('pattern')
-        "
-        >Password doesn't meet with pattern</span
-      >
-    </div>
-    <div class="form__element">
-      <label class="element__label" for="password">Confirm password</label>
-      <input
-        type="password"
-        class="element__input"
-        name="password"
-        formControlName="confirm"
-      />
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('confirm')?.touched &&
-          formGroup.get('confirm')?.hasError('required')
-        "
-        >Confirm password is required</span
-      >
-      <span
-        class="message-error"
-        *ngIf="
-          formGroup.get('confirm')?.touched &&
-          formGroup.get('confirm')?.hasError('pattern')
-        "
-        >Confirm password doesn't meet with pattern</span
-      >
-    </div>
-    <span
-      class="message-error"
-      *ngIf="
-        formGroup.touched && formGroup.hasError('validatePasswordAndConfirm')
-      "
-      >Password and confirm don't match</span
-    >
+      <form class="login__form" [formGroup]="formGroup">
+        <div class="form__element">
+          <label class="element__label" for="email">Email</label>
+          <input
+            type="text"
+            class="element__input"
+            name="email"
+            formControlName="email"
+            #email
+          />
+          <span
+            class="message-error"
+            *ngIf="
+              formGroup.get('email')?.touched &&
+              formGroup.get('email')?.hasError('required')
+            "
+            >Email is required</span
+          >
+          <span
+            class="message-error"
+            *ngIf="
+              formGroup.get('email')?.touched &&
+              formGroup.get('email')?.hasError('pattern')
+            "
+            >Format is not email</span
+          >
+          <span
+            class="message-error"
+            *ngIf="
+              formGroup.get('email')?.touched &&
+              formGroup.get('email')?.hasError('filterEmailByDomain')
+            "
+            >Only corporate email</span
+          >
+        </div>
+        <div class="form__element">
+          <label class="element__label" for="password">Password</label>
+          <input
+            type="password"
+            class="element__input"
+            name="password"
+            formControlName="password"
+          />
+          <span
+            class="message-error"
+            *ngIf="
+              formGroup.get('password')?.touched &&
+              formGroup.get('password')?.hasError('required')
+            "
+            >Password is required</span
+          >
+          <span
+            class="message-error"
+            *ngIf="
+              formGroup.get('password')?.touched &&
+              formGroup.get('password')?.hasError('pattern')
+            "
+            >Password doesn't meet with pattern</span
+          >
+        </div>
 
-    <div class="form__element">
-      <button type="button" class="element__button" (click)="login()">
-        Login
-      </button>
+        <div class="form__element">
+          <button type="button" class="element__button" (click)="login()">
+            Login
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
+    <div class="stages__token">
+      <img
+        class="token__logo"
+        src="assets/images/logo-horizontal.png"
+        width="1933"
+        height="383"
+        alt=""
+      />
+      <form class="token__form" [formGroup]="formGroupToken">
+        <div class="form__element">
+          <label class="element__label" for="token">Token</label>
+          <input
+            type="text"
+            class="element__input"
+            name="token"
+            formControlName="token"
+            #token
+          />
+          <span
+            class="message-error"
+            *ngIf="
+              formGroupToken.get('token')?.touched &&
+              formGroupToken.get('token')?.hasError('required')
+            "
+            >Token is required</span
+          >
+          <span
+            class="message-error"
+            *ngIf="
+              formGroupToken.get('token')?.touched &&
+              formGroupToken.get('token')?.hasError('pattern')
+            "
+            >Token must contain only 6 digits</span
+          >
+        </div>
+        <div class="form__element">
+          <button type="button" class="element__button" (click)="sentToken()">
+            Sent token
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

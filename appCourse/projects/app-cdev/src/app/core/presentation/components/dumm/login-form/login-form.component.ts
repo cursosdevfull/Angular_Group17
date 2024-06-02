@@ -1,135 +1,90 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgClass, NgIf } from '@angular/common';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-  AbstractControl,
-  FormControl,
+  FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
+
+import { CustomValidators } from '../../../../services/custom-validators';
 
 @Component({
   selector: 'cdev-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, NgClass],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
 })
 export class LoginFormComponent {
+  @ViewChild('token') inputToken: ElementRef | undefined;
+  @ViewChild('email') inputEmail: ElementRef | undefined;
+
   formGroup!: FormGroup;
+  formGroupToken!: FormGroup;
   domains = ['company.com', 'company.com.br'];
+  formBuilder!: FormBuilder;
+  formBuilderToken!: FormBuilder;
+
+  moveFormToLeft = false;
 
   constructor() {
     this.createForm();
   }
 
   createForm() {
-    this.formGroup = new FormGroup(
-      {
-        email: new FormControl(null, [
+    this.formBuilder = new FormBuilder();
+    this.formGroup = this.formBuilder.group({
+      email: [
+        null,
+        [
           Validators.required,
           Validators.pattern(
             /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
           ),
-          //this.onlyEmailCompany,
-          //this.filterEmailByDomain('company.com', 'company.com.br'),
-          this.onlyEmailCorporate.bind(this),
-        ]),
-        password: new FormControl(null, [
+          CustomValidators.filterEmailByDomain(...this.domains),
+        ],
+      ],
+      password: [
+        null,
+        [
           Validators.required,
           Validators.pattern(
             /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
           ),
-        ]),
-        confirm: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(
-            /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-          ),
-        ]),
-      },
-      this.validatePasswordAndConfirm
-    );
-  }
+        ],
+      ],
+    });
 
-  validatePasswordAndConfirm(
-    control: AbstractControl
-  ): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const confirm = control.get('confirm')?.value;
-
-    if (!password || !confirm) {
-      return null;
-    }
-
-    if (password === confirm) {
-      return null;
-    }
-
-    return { validatePasswordAndConfirm: true };
-  }
-
-  onlyEmailCompany(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-
-    if (!value) {
-      return null;
-    }
-
-    if (
-      value.match(/^[a-zA-Z0-9]*@company\.com$/) ||
-      value.match(/^[a-zA-Z0-9]*@company\.com\.br$/)
-    ) {
-      return null;
-    }
-
-    return { onlyEmailCompany: true };
-  }
-
-  onlyEmailCorporate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-
-    if (!value) {
-      return null;
-    }
-
-    const domain = value.split('@')[1];
-    console.log('domains', this.domains);
-
-    if (this.domains.includes(domain)) {
-      return null;
-    }
-
-    return { onlyEmailCorporate: true };
-  }
-
-  filterEmailByDomain(...domains: string[]): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-
-      if (!value) {
-        return null;
-      }
-
-      const domain = value.split('@')[1];
-
-      if (domains.includes(domain)) {
-        return null;
-      }
-
-      return { filterEmailByDomain: true };
-    };
+    this.formBuilderToken = new FormBuilder();
+    this.formGroupToken = this.formBuilderToken.group({
+      token: [null, [Validators.required, Validators.pattern(/^[0-9]{6}$/)]],
+    });
   }
 
   login() {
-    console.log(this.formGroup);
-
     if (this.formGroup.valid) {
-      alert('Form valid');
+      this.moveFormToLeft = true;
+    } else {
+      this.formGroup.markAllAsTouched();
+      this.formGroup.updateValueAndValidity();
     }
-    this.formGroup.markAllAsTouched();
-    this.formGroup.updateValueAndValidity();
+  }
+
+  setFocusOnInputToken() {
+    this.inputToken?.nativeElement.focus();
+  }
+
+  sentToken() {
+    if (this.formGroupToken.valid) {
+      alert('Token sent');
+    } else {
+      this.formGroupToken.markAllAsTouched();
+      this.formGroupToken.updateValueAndValidity();
+    }
+  }
+
+  ngAfterViewInit() {
+    this.inputEmail?.nativeElement.focus();
   }
 }

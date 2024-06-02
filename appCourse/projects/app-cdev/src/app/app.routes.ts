@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { PageLoginComponent } from './core/presentation/components/smart/page-login/page-login.component';
+
+export const routes: Routes = [
+  { path: 'login', component: PageLoginComponent },
+  { path: '**', redirectTo: 'login' },
+];
