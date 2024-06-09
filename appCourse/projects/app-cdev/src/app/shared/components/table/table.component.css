@@ -1,0 +1,43 @@
+.content {
+  height: 90%;
+}
+
+.content__container {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.container__thead {
+  background-color: #f5f5f5;
+}
+
+.thead__tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tbody__tr:hover {
+  background-color: rgb(241, 241, 201);
+}
+
+.tr__th {
+  padding: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+
+.tr__th--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #f5f5f5;
+}
+
+.tr__th--row {
+  padding: 10px;
+  text-align: left;
+  font-weight: 500;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  border-left: 1px solid #e0e0e0;
+}

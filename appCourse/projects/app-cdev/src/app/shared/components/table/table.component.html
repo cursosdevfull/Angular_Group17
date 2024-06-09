@@ -1,0 +1,24 @@
+<!-- <div class="content"> -->
+<perfect-scrollbar class="content">
+  <table class="content__container">
+    <thead class="container__thead">
+      <tr class="thead__tr">
+        <th
+          *ngFor="let metaColumn of metaColumns"
+          class="tr__th tr__th--sticky"
+        >
+          {{ metaColumn.header }}
+        </th>
+      </tr>
+    </thead>
+    <tbody class="container__tbody">
+      <tr *ngFor="let row of rows" class="tbody__tr">
+        <td *ngFor="let metaColumn of metaColumns" class="tr__th tr__th--row">
+          {{ row[metaColumn.field] }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</perfect-scrollbar>
+<!-- </div>
+ -->
