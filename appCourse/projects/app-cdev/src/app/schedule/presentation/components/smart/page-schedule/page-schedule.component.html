@@ -1,2 +1,13 @@
-<cdev-title title="Schedule"></cdev-title>
-<cdev-container></cdev-container>
+<cdev-title title="Schedule">
+  <button class="btn-add-item" (click)="openModal()">Agregar</button>
+</cdev-title>
+<cdev-container>
+  <cdev-table [data]="data" [metaColumns]="metaColumns"></cdev-table>
+  <div class="content-paginator">
+    <cdev-paginator
+      [currentPage]="currentPage"
+      [totalItems]="totalItems"
+      (page)="loadPage($event)"
+    ></cdev-paginator>
+  </div>
+</cdev-container>

@@ -1,2 +1,11 @@
 <cdev-title title="Course"></cdev-title>
-<cdev-container></cdev-container>
+<cdev-container>
+  <cdev-table [data]="data" [metaColumns]="metaColumns"></cdev-table>
+  <div class="content-paginator">
+    <cdev-paginator
+      [currentPage]="currentPage"
+      [totalItems]="totalItems"
+      (page)="loadPage($event)"
+    ></cdev-paginator>
+  </div>
+</cdev-container>

@@ -146,6 +146,5 @@ export class PageUserComponent {
       (this.currentPage - 1) * this.pageSize,
       this.currentPage * this.pageSize
     );
-    console.log('loadCurrentPage');
   }
 }

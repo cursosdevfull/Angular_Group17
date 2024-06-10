@@ -1,0 +1,6 @@
+<div *ngIf="isVisible" class="modal-backdrop">
+  <div class="modal-content">
+    <button (click)="closeModal()">Cerrar</button>
+    <app-formulario (save)="onSave($event)"></app-formulario>
+  </div>
+</div>

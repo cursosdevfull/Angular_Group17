@@ -1,0 +1,34 @@
+<div class="modal-backdrop">
+  <div class="modal-backdrop__modal-content" #modal_content>
+    <form class="form">
+      <div class="form__element">
+        <label class="element__label" for="course">Curso</label>
+        <input type="text" class="element__input" name="course" #course />
+      </div>
+      <div class="form__element">
+        <label class="element__label" for="dateStart">Fecha de inicio</label>
+        <input type="text" class="element__input" name="dateStart" #dateStart />
+      </div>
+      <div class="form__element">
+        <label class="element__label" for="hourStart">Hora de inicio</label>
+        <input type="text" class="element__input" name="hourStart" #hourStart />
+      </div>
+      <div class="form__element form__element--row">
+        <button
+          type="button"
+          class="element__button"
+          (click)="onSave({ name: 'user' })"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          class="element__button element__button--close"
+          (click)="closeModal()"
+        >
+          Cerrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
