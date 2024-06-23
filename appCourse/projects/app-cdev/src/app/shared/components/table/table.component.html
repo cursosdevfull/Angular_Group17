@@ -1,8 +1,8 @@
-<!-- <div class="content"> -->
+<ng-content></ng-content>
 <perfect-scrollbar class="content">
   <table class="content__container">
     <thead class="container__thead">
-      <tr class="thead__tr">
+      <tr class="thead__tr" #header>
         <th
           *ngFor="let metaColumn of metaColumns"
           class="tr__th tr__th--sticky"
@@ -11,7 +11,7 @@
         </th>
       </tr>
     </thead>
-    <tbody class="container__tbody">
+    <tbody class="container__tbody" #body>
       <tr *ngFor="let row of rows" class="tbody__tr">
         <td *ngFor="let metaColumn of metaColumns" class="tr__th tr__th--row">
           {{ row[metaColumn.field] }}
@@ -20,5 +20,3 @@
     </tbody>
   </table>
 </perfect-scrollbar>
-<!-- </div>
- -->

@@ -41,3 +41,27 @@
   border-bottom: 1px solid #e0e0e0;
   border-left: 1px solid #e0e0e0;
 }
+
+.tr__th--right {
+  text-align: right;
+}
+
+.btn-edit {
+  background-color: #1b701e;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 3px;
+}
+
+.btn-delete {
+  background-color: #8b140b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0 3px;
+}

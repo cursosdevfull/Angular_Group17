@@ -8,13 +8,14 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-import env from '../../../../../../assets/environment/env.json';
+import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { ModalComponent } from '../../../../../shared/components/modal/modal.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { TitleComponent } from '../../../../../shared/components/title/title.component';
 import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
+import { ISchedule } from '../../../../interfaces/schedule.interface';
 import { FormComponent } from '../../dumm/form/form.component';
 
 @Component({
@@ -30,12 +31,11 @@ import { FormComponent } from '../../dumm/form/form.component';
   templateUrl: './page-schedule.component.html',
   styleUrl: './page-schedule.component.css',
 })
-export class PageScheduleComponent {
-  //@ViewChild(ModalComponent) modal!: ModalComponent;
+export class PageScheduleComponent extends BaseComponent<ISchedule> {
   @ViewChild('contenedor') contenedor!: ViewContainerRef;
   component!: ComponentRef<any>;
 
-  dataOriginal = [
+  dataOriginal: ISchedule[] = [
     { id: 1, course: 'Angular', date: '2021-10-10', hour: '10:00' },
     { id: 2, course: 'React', date: '2021-10-10', hour: '10:00' },
     { id: 3, course: 'Vue', date: '2021-10-10', hour: '10:00' },
@@ -77,12 +77,7 @@ export class PageScheduleComponent {
     { id: 39, course: 'Vue', date: '2021-10-10', hour: '10:00' },
   ];
 
-  data: any[] = [];
-
-  currentPage = 1;
-  pageSize = env.pageSize;
   totalItems = this.dataOriginal.length;
-  //columns = ['id', 'name', 'lastname'];
 
   metaColumns: TMetaColumns = [
     { field: 'id', header: 'ID' },
@@ -95,15 +90,8 @@ export class PageScheduleComponent {
     private appRef: ApplicationRef,
     private injector: EnvironmentInjector
   ) {
-    this.loadPage(1);
-  }
-
-  loadPage(page: number) {
-    this.currentPage = page;
-    this.data = this.dataOriginal.slice(
-      (this.currentPage - 1) * this.pageSize,
-      this.currentPage * this.pageSize
-    );
+    super();
+    this.loadPage(this.currentPage);
   }
 
   openModal() {

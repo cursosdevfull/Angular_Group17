@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-import env from '../../../../../../assets/environment/env.json';
+import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { TitleComponent } from '../../../../../shared/components/title/title.component';
 import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
+import { IUser } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'cdev-page-user',
@@ -19,8 +20,8 @@ import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
   templateUrl: './page-user.component.html',
   styleUrl: './page-user.component.css',
 })
-export class PageUserComponent {
-  dataOriginal = [
+export class PageUserComponent extends BaseComponent<IUser> {
+  dataOriginal: IUser[] = [
     { id: 1, name: 'name01', lastname: 'lastname01' },
     { id: 2, name: 'name02', lastname: 'lastname02' },
     { id: 3, name: 'name03', lastname: 'lastname03' },
@@ -123,12 +124,7 @@ export class PageUserComponent {
     { id: 20, name: 'name20', lastname: 'lastname20' },
   ];
 
-  data: any[] = [];
-
-  currentPage = 1;
-  pageSize = env.pageSize;
   totalItems = this.dataOriginal.length;
-  //columns = ['id', 'name', 'lastname'];
 
   metaColumns: TMetaColumns = [
     { field: 'id', header: 'ID' },
@@ -137,14 +133,7 @@ export class PageUserComponent {
   ];
 
   constructor() {
-    this.loadPage(1);
-  }
-
-  loadPage(page: number) {
-    this.currentPage = page;
-    this.data = this.dataOriginal.slice(
-      (this.currentPage - 1) * this.pageSize,
-      this.currentPage * this.pageSize
-    );
+    super();
+    this.loadPage(this.currentPage);
   }
 }

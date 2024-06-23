@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-import env from '../../../../../../assets/environment/env.json';
+import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { TitleComponent } from '../../../../../shared/components/title/title.component';
 import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
+import { ICourse } from '../../../../interfaces/course.interface';
 
 @Component({
   selector: 'cdev-page-course',
@@ -19,8 +20,8 @@ import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
   templateUrl: './page-course.component.html',
   styleUrl: './page-course.component.css',
 })
-export class PageCourseComponent {
-  dataOriginal = [
+export class PageCourseComponent extends BaseComponent<ICourse> {
+  dataOriginal: ICourse[] = [
     {
       id: 1,
       title: 'Angular',
@@ -163,12 +164,7 @@ export class PageCourseComponent {
     },
   ];
 
-  data: any[] = [];
-
-  currentPage = 1;
-  pageSize = env.pageSize;
   totalItems = this.dataOriginal.length;
-  //columns = ['id', 'name', 'lastname'];
 
   metaColumns: TMetaColumns = [
     { field: 'id', header: 'ID' },
@@ -178,14 +174,7 @@ export class PageCourseComponent {
   ];
 
   constructor() {
-    this.loadPage(1);
-  }
-
-  loadPage(page: number) {
-    this.currentPage = page;
-    this.data = this.dataOriginal.slice(
-      (this.currentPage - 1) * this.pageSize,
-      this.currentPage * this.pageSize
-    );
+    super();
+    this.loadPage(this.currentPage);
   }
 }

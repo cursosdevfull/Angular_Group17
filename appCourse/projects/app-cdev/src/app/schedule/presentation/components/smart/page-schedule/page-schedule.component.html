@@ -2,7 +2,15 @@
   <button class="btn-add-item" (click)="openModal()">Agregar</button>
 </cdev-title>
 <cdev-container>
-  <cdev-table [data]="data" [metaColumns]="metaColumns"></cdev-table>
+  <cdev-table [data]="data" [metaColumns]="metaColumns">
+    <div #newColumn title="actions">
+      <button class="btn-edit">Editar</button>
+      <button class="btn-delete">Eliminar</button>
+    </div>
+    <div #newColumn title="Reportes">
+      <button class="btn-edit">Generar reporte</button>
+    </div>
+  </cdev-table>
   <div class="content-paginator">
     <cdev-paginator
       [currentPage]="currentPage"
