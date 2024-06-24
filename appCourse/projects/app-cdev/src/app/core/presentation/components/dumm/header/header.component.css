@@ -16,7 +16,7 @@
 .user__info {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   height: 100%;
   border: none;
   cursor: pointer;
@@ -42,4 +42,13 @@
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 20px solid rgba(0, 0, 0, 0.5);
+}
+
+mat-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  height: 100%;
 }

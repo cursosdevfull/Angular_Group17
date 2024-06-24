@@ -6,8 +6,8 @@ import {
   Input,
   QueryList,
   ViewChild,
-  ViewEncapsulation,
 } from '@angular/core';
+import { MatTableModule } from '@angular/material/table';
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
@@ -24,7 +24,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @Component({
   selector: 'cdev-table',
   standalone: true,
-  imports: [NgFor, PaginatorComponent, PerfectScrollbarModule],
+  imports: [NgFor, PaginatorComponent, PerfectScrollbarModule, MatTableModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
   providers: [
@@ -33,7 +33,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
   ],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.None,
 })
 export class TableComponent {
   @Input('data') rows: any[] = [];

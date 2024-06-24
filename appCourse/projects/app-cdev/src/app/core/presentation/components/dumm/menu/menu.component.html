@@ -1,4 +1,22 @@
-<div class="container">
+<mat-nav-list class="container">
+  <img
+    src="/assets/images/logo-horizontal.png"
+    alt=""
+    class="container__logo"
+  />
+  @for (item of items; track item) {
+  <mat-list-item routerLinkActive="item__link--selected">
+    <a routerLink="{{ item.route }}">
+      <button mat-button>
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <h4 mat-line>{{ item.label }}</h4>
+      </button>
+    </a>
+  </mat-list-item>
+  }
+</mat-nav-list>
+
+<!-- <div class="container">
   <img
     src="/assets/images/logo-horizontal.png"
     alt=""
@@ -39,4 +57,4 @@
       >
     </li>
   </ul>
-</div>
+</div> -->

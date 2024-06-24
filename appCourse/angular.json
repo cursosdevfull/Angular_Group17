@@ -22,7 +22,10 @@
               "projects/app-cdev/src/favicon.ico",
               "projects/app-cdev/src/assets"
             ],
-            "styles": ["projects/app-cdev/src/styles.css"],
+            "styles": [
+              "projects/app-cdev/src/custom-theme.scss",
+              "projects/app-cdev/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {

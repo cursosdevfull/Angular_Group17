@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 
 import { HeaderComponent } from './core/presentation/components/dumm/header/header.component';
@@ -10,7 +11,13 @@ import { PageLoginComponent } from './core/presentation/components/smart/page-lo
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [PageLoginComponent, RouterOutlet, MenuComponent, HeaderComponent],
+  imports: [
+    PageLoginComponent,
+    RouterOutlet,
+    MenuComponent,
+    HeaderComponent,
+    MatSidenavModule,
+  ],
 })
 export class AppComponent {
   title = 'appCDev';
