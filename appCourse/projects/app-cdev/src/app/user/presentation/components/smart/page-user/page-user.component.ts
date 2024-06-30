@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
+import { IConnectionData } from '../../../../../app.config';
 import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
+import { BookService } from '../../../../../core/presentation/services/book.service';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
@@ -132,8 +134,15 @@ export class PageUserComponent extends BaseComponent<IUser> {
     { field: 'lastname', header: 'Apellido del usuario' },
   ];
 
-  constructor() {
+  constructor(
+    @Inject('connectionData') connectionData: Promise<IConnectionData>,
+    bookService: BookService
+  ) {
     super();
     this.loadPage(this.currentPage);
+    connectionData.then((data) => {
+      console.log('Connection data: ', data);
+    });
+    console.log(bookService.getBooks);
   }
 }

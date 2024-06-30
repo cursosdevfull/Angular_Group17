@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
+import { AlbumService } from '../../../../../core/presentation/services/album.service';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { ModalComponent } from '../../../../../shared/components/modal/modal.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
@@ -30,6 +31,7 @@ import { FormComponent } from '../../dumm/form/form.component';
   ],
   templateUrl: './page-schedule.component.html',
   styleUrl: './page-schedule.component.css',
+  providers: [AlbumService],
 })
 export class PageScheduleComponent extends BaseComponent<ISchedule> {
   @ViewChild('contenedor') contenedor!: ViewContainerRef;
@@ -88,10 +90,16 @@ export class PageScheduleComponent extends BaseComponent<ISchedule> {
 
   constructor(
     private appRef: ApplicationRef,
-    private injector: EnvironmentInjector
+    private injector: EnvironmentInjector,
+    private albumService: AlbumService
   ) {
     super();
     this.loadPage(this.currentPage);
+  }
+
+  async ngOnInit() {
+    const albums = await this.albumService.getAlbums();
+    console.log('Albums', albums);
   }
 
   openModal() {

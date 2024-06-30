@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
+import { MenuService } from '../../../services/menu.service';
+
 export interface IRoute {
   route: string;
   icon: string;
@@ -26,26 +28,9 @@ export type TMenu = IRoute[];
   styleUrl: './menu.component.css',
 })
 export class MenuComponent {
-  items: TMenu = [
-    {
-      route: '/dashboard',
-      icon: 'dashboard',
-      label: 'Dashboard',
-    },
-    {
-      route: '/user',
-      icon: 'people',
-      label: 'Users',
-    },
-    {
-      route: '/course',
-      icon: 'shopping_cart',
-      label: 'Courses',
-    },
-    {
-      route: '/schedule',
-      icon: 'settings',
-      label: 'Schedule',
-    },
-  ];
+  items: TMenu;
+
+  constructor(menuService: MenuService) {
+    this.items = menuService.getItemsMenu;
+  }
 }

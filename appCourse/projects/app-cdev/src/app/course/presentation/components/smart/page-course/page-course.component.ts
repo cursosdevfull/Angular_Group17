@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 
+import { MiClase, MiClaseProvide } from '../../../../../app.config';
 import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
+import { BookService } from '../../../../../core/presentation/services/book.service';
+import { CommentService } from '../../../../../core/presentation/services/comment.service';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
@@ -173,8 +176,20 @@ export class PageCourseComponent extends BaseComponent<ICourse> {
     { field: 'duration', header: 'Duración' },
   ];
 
-  constructor() {
+  constructor(
+    @Inject(MiClaseProvide) miClase: MiClase,
+    private commentService: CommentService,
+    @Inject('LibroService') private libroService: BookService
+  ) {
     super();
+    console.log('[PageCourseComponent] Current date: ', miClase.getCurrentDate);
     this.loadPage(this.currentPage);
+  }
+
+  async ngOnInit() {
+    const comments = await this.commentService.getComments();
+    console.log('Comments', comments);
+    const libros = this.libroService.getBooks;
+    console.log('Libros', libros);
   }
 }
