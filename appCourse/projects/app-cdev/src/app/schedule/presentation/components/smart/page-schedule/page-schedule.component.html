@@ -4,7 +4,7 @@
 <cdev-container>
   <cdev-table [data]="data" [metaColumns]="metaColumns">
     <div #newColumn title="actions">
-      <button class="btn-edit">Editar</button>
+      <button class="btn-edit">Editar2</button>
       <button class="btn-delete">Eliminar</button>
     </div>
     <div #newColumn title="Reportes">
@@ -13,7 +13,6 @@
   </cdev-table>
   <div class="content-paginator">
     <cdev-paginator
-      [currentPage]="currentPage"
       [totalItems]="totalItems"
       (page)="loadPage($event)"
     ></cdev-paginator>

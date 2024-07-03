@@ -1,12 +1,5 @@
 import { NgFor } from '@angular/common';
-import {
-  Component,
-  ContentChildren,
-  ElementRef,
-  Input,
-  QueryList,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -33,35 +26,20 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
   ],
-  //encapsulation: ViewEncapsulation.None,
 })
 export class TableComponent {
   @Input('data') rows: any[] = [];
   @Input() metaColumns: TMetaColumns = [];
-  @ContentChildren('newColumn')
-  divs!: QueryList<ElementRef>;
-  @ViewChild('header') header!: ElementRef;
-  @ViewChild('body') body!: ElementRef;
 
-  ngAfterContentChecked() {
-    if (!this.divs || !this.header || !this.body) return;
+  displayedColumns: string[] = [];
 
-    this.divs.forEach((div) => {
-      const th = document.createElement('th');
-      th.innerHTML =
-        div.nativeElement.title !== 'actions' ? div.nativeElement.title : '';
-      th.setAttribute('class', 'tr__th tr__th--sticky');
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['metaColumns']) {
+      this.displayedColumns = this.metaColumns.map((col) => col.field);
+    }
 
-      this.header.nativeElement.appendChild(th);
-      const trBody = this.body.nativeElement.querySelectorAll('tr');
-      trBody.forEach((tr: any) => {
-        const td = document.createElement('td');
-        td.setAttribute('class', 'tr__th tr__th--row tr__th--right');
-        td.innerHTML = div.nativeElement.innerHTML;
-        tr.appendChild(td);
-      });
-
-      div.nativeElement.remove();
-    });
+    if (changes['rows']) {
+      this.rows = changes['rows']['currentValue'];
+    }
   }
 }

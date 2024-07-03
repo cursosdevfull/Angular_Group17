@@ -1,61 +1,27 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
 
 import env from '../../../../assets/environment/env.json';
+import { Paginator } from '../../../core/presentation/providers/paginator';
 
 @Component({
   selector: 'cdev-paginator',
   standalone: true,
-  imports: [],
+  imports: [MatPaginatorModule],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.css',
+  providers: [{ provide: MatPaginatorIntl, useClass: Paginator }],
 })
 export class PaginatorComponent {
-  @Input() totalItems!: number;
-  @Input() currentPage!: number;
+  @Input() totalItems: number = 0;
   @Output() page: EventEmitter<number> = new EventEmitter();
   pageSize: number = env.pageSize;
 
-  get totalPages(): number {
-    return Math.ceil(this.totalItems / this.pageSize);
-  }
-
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
-
-  get firstItem(): number {
-    return (this.currentPage - 1) * this.pageSize + 1;
-  }
-
-  get lastItem(): number {
-    return Math.min(this.currentPage * this.pageSize, this.totalItems);
-  }
-
-  get disabledPrevious(): boolean {
-    return this.currentPage === 1;
-  }
-
-  get disabledNext(): boolean {
-    return this.currentPage === this.totalPages;
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.page.emit(this.currentPage - 1);
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.page.emit(this.currentPage + 1);
-    }
-  }
-
-  goFirstPage() {
-    this.page.emit(1);
-  }
-
-  goLastPage() {
-    this.page.emit(this.totalPages);
+  changePage(event: PageEvent) {
+    this.page.emit(event.pageIndex + 1);
   }
 }
