@@ -54,6 +54,8 @@
             class="element__input"
             name="password"
             formControlName="password"
+            cdev-caps-lock
+            (onCapsLock)="capsLock($event)"
           />
           <span
             class="message-error"
@@ -78,6 +80,7 @@
             Login
           </button>
         </div>
+        <span class="form__capslock" *ngIf="stateCapsLock">La tecla de mayúsculas está activada</span>
       </form>
     </div>
     <div class="stages__token">

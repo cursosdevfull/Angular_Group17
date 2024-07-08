@@ -25,3 +25,7 @@ mat-progress-bar {
   right: 0;
   z-index: 1000;
 }
+
+.header-content__content {
+  height: 100%;
+}

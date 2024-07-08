@@ -1,0 +1,25 @@
+<div class="container">
+  <mat-card class="container__card mat-elevation-z12">
+    <div class="card__message">
+      <div class="message__avatar">
+        <img src="/assets/images/user.jpg" class="avatar__image" />
+      </div>
+      <div class="message__content">
+        <p class="content__text">Su sesión ha sido bloqueada</p>
+        <p class="content__text content__text--secondLine">
+          Usted ha estado inactivo por un rato. Por favor, ingrese su
+          contraseña.
+        </p>
+      </div>
+    </div>
+    <form class="card__form">
+      <mat-form-field appearance="outline">
+        <mat-label>Ingrese su contraseña</mat-label>
+        <input type="text" matInput />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="unlockSession()">
+        Desbloquear
+      </button>
+    </form>
+  </mat-card>
+</div>

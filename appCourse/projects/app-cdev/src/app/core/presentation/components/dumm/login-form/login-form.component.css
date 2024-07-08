@@ -66,6 +66,14 @@
   cursor: pointer;
 }
 
+.form__capslock {
+  display: inline-block;
+  padding: 5px;
+  font-size: 15px;
+  color: #f44336;
+  text-align: center;
+}
+
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }

@@ -1,4 +1,7 @@
+import { inject } from '@angular/core';
+
 import env from '../../../../../assets/environment/env.json';
+import { LayoutService } from '../../../../config/modules/layout/layout.module';
 import { TMetaColumns } from '../../../../shared/interfaces/metacolumn';
 
 export abstract class BaseComponent<Item> {
@@ -8,6 +11,14 @@ export abstract class BaseComponent<Item> {
   data: Item[] = [];
   currentPage = 1;
   pageSize = env.pageSize;
+
+  constructor() {
+    const layoutService = inject(LayoutService);
+    layoutService.configuration = {
+      headerVisible: true,
+      menuVisible: true,
+    };
+  }
 
   loadPage(page: number) {
     this.currentPage = page;

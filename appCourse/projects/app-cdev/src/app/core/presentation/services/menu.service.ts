@@ -27,6 +27,11 @@ export class MenuService {
       icon: 'settings',
       label: 'Schedule',
     },
+    {
+      route: '/video',
+      icon: 'video_library',
+      label: 'Video',
+    },
   ];
 
   constructor() {}

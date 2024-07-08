@@ -10,11 +10,11 @@
   </div>
 </mat-toolbar>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="lockSession()">
     <mat-icon>lock</mat-icon>
     <span>Bloquear sesión</span>
   </button>
-  <button mat-menu-item>
+  <button mat-menu-item (click)="logout()">
     <mat-icon>logout</mat-icon>
     <span>Cerrar sesión</span>
   </button>

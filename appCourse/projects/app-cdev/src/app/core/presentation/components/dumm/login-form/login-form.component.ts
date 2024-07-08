@@ -1,18 +1,15 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
+import { CapsLockDirective } from '../../../../../shared/directives/caps-lock/caps-lock.directive';
 import { CustomValidators } from '../../../services/custom-validators';
 
 @Component({
   selector: 'cdev-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, CapsLockDirective],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
 })
@@ -28,7 +25,9 @@ export class LoginFormComponent {
 
   moveFormToLeft = false;
 
-  constructor() {
+  stateCapsLock = false;
+
+  constructor(private readonly router: Router) {
     this.createForm();
   }
 
@@ -77,7 +76,7 @@ export class LoginFormComponent {
 
   sentToken() {
     if (this.formGroupToken.valid) {
-      alert('Token sent');
+      this.router.navigate(['/dashboard']);
     } else {
       this.formGroupToken.markAllAsTouched();
       this.formGroupToken.updateValueAndValidity();
@@ -86,5 +85,9 @@ export class LoginFormComponent {
 
   ngAfterViewInit() {
     this.inputEmail?.nativeElement.focus();
+  }
+
+  capsLock(event: boolean) {
+    this.stateCapsLock = event;
   }
 }

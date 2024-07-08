@@ -1,0 +1,68 @@
+.container {
+  z-index: 100000000;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(/assets/images/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container__card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 520px;
+  padding: 10px;
+}
+
+.card__message {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 60%;
+}
+
+.message__avatar {
+  text-align: center;
+}
+
+.avatar__image {
+  max-width: 150px;
+}
+
+.card__form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 40%;
+}
+
+.message__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content__text {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.content__text--secondLine {
+  font-size: 0.8rem;
+}
+
+.card__form {
+  border-left: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
