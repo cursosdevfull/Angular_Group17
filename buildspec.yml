@@ -11,10 +11,10 @@ phases:
   build:
     commands:
       - echo "Starting compilation"
+      - aws s3 cp s3://cursoangular17-devops/$ENVIRONMENT/env.json projects/app-cdev/src/assets/environment/env.json
       - npm run build --project appCDev --configuration=production
   post_build:
     commands:
-      - aws s3 cp s3://cursoangular17-devops/$ENVIRONMENT/env.json projects/app-cdev/src/assets/environment/env.json
       - aws s3 rm s3://curso-angular-17 --recursive
       - aws s3 sync dist/appCDev/browser s3://curso-angular-17 --delete
       - aws cloudfront create-invalidation --distribution-id EBXBE1G5KPZ8L --paths '/*'
