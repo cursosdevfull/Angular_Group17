@@ -16,7 +16,7 @@ phases:
   post_build:
     commands:
       - aws s3 rm s3://curso-angular-17 --recursive
-      - aws s3 sync dist/appCDev/browser s3://curso-angular-17 --delete
+      - aws s3 sync dist/app-cdev/browser s3://curso-angular-17 --delete
       - aws cloudfront create-invalidation --distribution-id EBXBE1G5KPZ8L --paths '/*'
 artifacts:
   name: "Angular 17"
