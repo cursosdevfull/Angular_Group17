@@ -1,0 +1,24 @@
+version: "0.2"
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
+    commands:
+      - echo "Installing dependencies"
+      - cd appCourse
+      - npm ci
+  build:
+    commands:
+      - echo "Starting compilation"
+      - npm run build --project appCDev --configuration=production
+  post_build:
+    commands:
+      - aws s3 rm s3://curso-angular-17 --recursive
+      - aws s3 sync dist/appCDev/browser s3://curso-angular-17 --delete
+      - aws cloudfront create-invalidation --distribution-id EBXBE1G5KPZ8L --paths '/*'
+artifacts:
+  name: "Angular 17"
+  files:
+    - "**/*"
+  base_directory: "dist/app-cdev/browser"
