@@ -80,8 +80,20 @@
             Login
           </button>
         </div>
-        <span class="form__capslock" *ngIf="stateCapsLock">La tecla de mayúsculas está activada</span>
+
+        <div class="form__recaptcha">
+          <re-captcha formControlName="recaptchaCode"></re-captcha>
+        </div>
+
+        <span class="form__capslock" *ngIf="stateCapsLock"
+          >La tecla de mayúsculas está activada</span
+        >
       </form>
+      <div class="login__register">
+        <button (click)="goToRegister()" mat-button color="primary">
+          Don't you have an account?
+        </button>
+      </div>
     </div>
     <div class="stages__token">
       <img

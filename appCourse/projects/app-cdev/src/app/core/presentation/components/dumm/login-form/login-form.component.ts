@@ -1,17 +1,46 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { Router, RouterLink } from '@angular/router';
+import {
+  RECAPTCHA_SETTINGS,
+  RecaptchaFormsModule,
+  RecaptchaModule,
+} from 'ng-recaptcha';
 
+import { AuthTokens } from '../../../../../auth/services/auth-tokens';
+import { AuthService } from '../../../../../auth/services/auth.service';
 import { CapsLockDirective } from '../../../../../shared/directives/caps-lock/caps-lock.directive';
-import { CustomValidators } from '../../../services/custom-validators';
 
 @Component({
   selector: 'cdev-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass, CapsLockDirective],
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    NgClass,
+    CapsLockDirective,
+    RouterLink,
+    MatButtonModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+  ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: '6Len6pMpAAAAAHGxLZDXxvPwRLu4W8DjOpdIs13r',
+      },
+    },
+  ],
 })
 export class LoginFormComponent {
   @ViewChild('token') inputToken: ElementRef | undefined;
@@ -27,7 +56,10 @@ export class LoginFormComponent {
 
   stateCapsLock = false;
 
-  constructor(private readonly router: Router) {
+  constructor(
+    private readonly router: Router,
+    private readonly authService: AuthService
+  ) {
     this.createForm();
   }
 
@@ -41,18 +73,19 @@ export class LoginFormComponent {
           Validators.pattern(
             /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
           ),
-          CustomValidators.filterEmailByDomain(...this.domains),
+          //CustomValidators.filterEmailByDomain(...this.domains),
         ],
       ],
       password: [
         null,
         [
           Validators.required,
-          Validators.pattern(
+          /*Validators.pattern(
             /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-          ),
+          ),*/
         ],
       ],
+      recaptchaCode: [null, Validators.required],
     });
 
     this.formBuilderToken = new FormBuilder();
@@ -63,11 +96,28 @@ export class LoginFormComponent {
 
   login() {
     if (this.formGroup.valid) {
-      this.moveFormToLeft = true;
+      const { email, password, recaptchaCode } = this.formGroup.value;
+      this.authService.login(email, password, recaptchaCode).subscribe({
+        next: (data: AuthTokens) => {
+          const { accessToken, refreshToken } = data;
+          sessionStorage.setItem('accessToken', accessToken);
+          sessionStorage.setItem('refreshToken', refreshToken);
+          this.moveFormToLeft = true;
+        },
+        error: () => {
+          console.log('Error');
+        },
+      });
+      //this.moveFormToLeft = true;
     } else {
       this.formGroup.markAllAsTouched();
       this.formGroup.updateValueAndValidity();
     }
+  }
+
+  goToRegister() {
+    console.log('goToRegister');
+    this.router.navigate(['/auth/register']);
   }
 
   setFocusOnInputToken() {
@@ -75,7 +125,18 @@ export class LoginFormComponent {
   }
 
   sentToken() {
+    const { token } = this.formGroupToken.value;
     if (this.formGroupToken.valid) {
+      this.authService.verifyToken(token).subscribe({
+        next: (data: AuthTokens) => {
+          const { accessToken, refreshToken } = data;
+          sessionStorage.setItem('accessToken', accessToken);
+          sessionStorage.setItem('refreshToken', refreshToken);
+        },
+        error: () => {
+          console.log('Error');
+        },
+      });
       this.router.navigate(['/dashboard']);
     } else {
       this.formGroupToken.markAllAsTouched();

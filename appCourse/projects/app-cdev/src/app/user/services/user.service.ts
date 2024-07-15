@@ -114,7 +114,7 @@ export class UserService {
 
   async getUsers(): Promise<IUser[]> {
     this.progressService.setStatusProgressBar(true);
-    const randomTime = Math.floor(Math.random() * 20000) + 4000;
+    const randomTime = Math.floor(Math.random() * 2000) + 1000;
     await new Promise((resolve) => setTimeout(resolve, randomTime));
     this.progressService.setStatusProgressBar(false);
     return [...this.users];

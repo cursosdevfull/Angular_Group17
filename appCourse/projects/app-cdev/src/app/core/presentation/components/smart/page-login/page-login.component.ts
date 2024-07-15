@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { LayoutService } from '../../../../../config/modules/layout/layout.module';
 import { LoginAnimationComponent } from '../../dumm/login-animation/login-animation.component';
@@ -7,7 +8,7 @@ import { LoginFormComponent } from '../../dumm/login-form/login-form.component';
 @Component({
   selector: 'cdev-page-login',
   standalone: true,
-  imports: [LoginAnimationComponent, LoginFormComponent],
+  imports: [LoginAnimationComponent, LoginFormComponent, RouterModule],
   templateUrl: './page-login.component.html',
   styleUrl: './page-login.component.css',
 })

@@ -12,7 +12,7 @@
 }
 
 .container__stages {
-  width: 600px;
+  width: 610px;
   overflow: hidden;
   transition: 0.3s ease-in-out;
   -webkit-transition: 0.3s ease-in-out;
@@ -38,7 +38,7 @@
   justify-content: center;
   padding: 20px 0;
   gap: 20px;
-  width: 100%;
+  width: 96%;
 }
 
 .form__element {
@@ -95,4 +95,8 @@ input.ng-invalid.ng-touched {
   max-width: 300px;
   width: 100%;
   height: 100%;
+}
+
+.login__register {
+  text-align: center;
 }
