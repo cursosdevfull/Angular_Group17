@@ -1,0 +1,12 @@
+<table class="table table-hover">
+  <thead>
+    <th>Film Name</th>
+  </thead>
+  <tbody>
+    @for (film of films(); track $index) {
+    <tr>
+      <td>{{ film.title }}</td>
+    </tr>
+    }
+  </tbody>
+</table>

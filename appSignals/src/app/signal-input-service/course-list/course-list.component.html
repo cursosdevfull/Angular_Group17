@@ -1,0 +1,12 @@
+<div class="grid">
+  <div class="rowCourse">
+    <div class="cellHeader">Title</div>
+    <div class="cellHeader">Day Frequency</div>
+  </div>
+  @for (course of courses(); track course.id) {
+  <div class="rowCourse">
+    <div>{{ course.title }}</div>
+    <div class="frequency">({{ course.dayFrequency }})</div>
+  </div>
+  }
+</div>

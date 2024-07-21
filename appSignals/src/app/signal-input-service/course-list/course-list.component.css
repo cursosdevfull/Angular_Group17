@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, lfr);
+  width: 100%;
+  margin: 0 0 auto;
+}
+
+.cellHeader {
+  padding: 8px;
+  text-align: left;
+  color: royalblue;
+}
+
+.rowCourse {
+  display: flex;
+  gap: 10px;
+}
+
+.frequency {
+  font-size: 14px;
+  font-style: italic;
+}

@@ -1,0 +1,32 @@
+<h2>Signal Observables</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <table class="col-6 table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Hair color</th>
+            <th>Skin color</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of people(); track $index) {
+          <tr (click)="onSelectPeople(item.name)">
+            <td>{{ item.name }}</td>
+            <td>{{ item.hair_color }}</td>
+            <td>{{ item.skin_color }}</td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="3">Loading data...</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+        <app-films-detail></app-films-detail>
+    </div>
+  </div>
+</div>

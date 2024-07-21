@@ -1,0 +1,21 @@
+<h2>Signal Simple</h2>
+<select
+  [ngModel]="quantityCars()"
+  (change)="onSelectQuantity($any($event.target).value)"
+>
+  <option value="" disabled>-- Select any quantity --</option>
+  <option value="{{ item }}" *ngFor="let item of quantityAvailables()">
+    {{ item }}
+  </option>
+</select>
+<ul>
+  <li>Brand: {{ carInformation().brand }}</li>
+  <li>Model: {{ carInformation().model }}</li>
+  <li>Year: {{ carInformation().year }}</li>
+  <li>Price: {{ carInformation().price }}</li>
+  <li>Price with tax: {{ carInformation().priceWithTax }}</li>
+  <li style="font-weight: bold" [style.color]="totalColor()">
+    Total ({{ quantityCars() }}) =
+    {{ totalPrice() }}
+  </li>
+</ul>

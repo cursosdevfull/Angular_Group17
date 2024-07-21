@@ -1,0 +1,16 @@
+<h2>Signal Service</h2>
+<div class="container">
+  <app-filter-course [(FilterByDay)]="customFilter"></app-filter-course>
+  <div class="grid">
+    <div class="rowCourse">
+      <div class="cellHeader">Title</div>
+      <div class="cellHeader">Day Frequency</div>
+    </div>
+    @for (course of courses(); track course.id) {
+    <div class="rowCourse">
+      <div>{{ course.title }}</div>
+      <div class="frequency">({{ course.dayFrequency }})</div>
+    </div>
+    }
+  </div>
+</div>
