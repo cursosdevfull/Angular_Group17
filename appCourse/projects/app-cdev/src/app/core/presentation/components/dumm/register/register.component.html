@@ -1,1 +1,90 @@
-<p>register works!</p>
+<div class="container-form">
+  <div class="parent" [ngClass]="{ 'move-right': next }">
+    <form [formGroup]="fgRegister">
+      <h1>Sign up</h1>
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" />
+        <mat-icon matPrefix>face</mat-icon>
+        <mat-error *ngIf="fgRegister.get('name')!.hasError('required')"
+          >Name is required</mat-error
+        >
+        <mat-error *ngIf="fgRegister.get('name')!.hasError('minlength')"
+          >Name must be at least 3 characters long</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Lastname</mat-label>
+        <input matInput formControlName="lastname" type="text" />
+        <mat-icon matPrefix>face</mat-icon>
+        <mat-error *ngIf="fgRegister.get('lastname')!.hasError('required')"
+          >Lastname is required</mat-error
+        >
+        <mat-error *ngIf="fgRegister.get('lastname')!.hasError('minlength')"
+          >Lastname must be at least 3 characters long</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-icon matPrefix>email</mat-icon>
+        <mat-error *ngIf="fgRegister.get('email')!.hasError('required')"
+          >Email is required</mat-error
+        >
+        <mat-error *ngIf="fgRegister.get('email')!.hasError('email')"
+          >Email invalid</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-icon matPrefix>lock</mat-icon>
+        <mat-error *ngIf="fgRegister.get('password')!.hasError('required')"
+          >Password is required</mat-error
+        >
+        <mat-error *ngIf="fgRegister.get('password')!.hasError('pattern')"
+          >Password must be at least 8 characters long, contain at least one
+          uppercase letter, one lowercase letter and one number</mat-error
+        >
+      </mat-form-field>
+
+      <div class="btnAction">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="register()"
+          [disabled]="fgRegister.invalid"
+        >
+          Enter
+        </button>
+      </div>
+      <div>
+        <a routerLink="/auth/login" class="linkAction"
+          >Do you have account? Click here</a
+        >
+      </div>
+    </form>
+    <form [formGroup]="fgToken">
+      <h1>Security</h1>
+      <div class="qr">
+        <img [src]="qrCode" alt="" />
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Token</mat-label>
+        <input matInput formControlName="token" />
+      </mat-form-field>
+      <div class="btnAction">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="enable2fa()"
+          [disabled]="fgToken.invalid"
+        >
+          Enter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
