@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
 
-import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
 import { PaginatorComponent } from '../../../../../shared/components/paginator/paginator.component';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { TitleComponent } from '../../../../../shared/components/title/title.component';
-import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
-import { UserService } from '../../../../services/user.service';
-import { IUser } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'cdev-page-user',
@@ -21,8 +17,8 @@ import { IUser } from '../../../interfaces/user.interface';
   templateUrl: './page-user.component.html',
   styleUrl: './page-user.component.css',
 })
-export class PageUserComponent extends BaseComponent<IUser> {
-  dataOriginal: IUser[] = [];
+export class PageUserComponent /*extends BaseComponent<IUser>*/ {
+  /*dataOriginal: IUser[] = [];
 
   totalItems = this.dataOriginal.length;
 
@@ -41,5 +37,5 @@ export class PageUserComponent extends BaseComponent<IUser> {
     this.dataOriginal = await this.userService.getUsers();
     this.totalItems = this.dataOriginal.length;
     this.loadPage(this.currentPage);
-  }
+  }*/
 }

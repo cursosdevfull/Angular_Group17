@@ -39,9 +39,11 @@ export abstract class BaseInfrastructure<
       .pipe(map((resp: any) => resp.result.response));
   }
   getByPage(page: number, limit: number): Observable<ResultByPage<Result>> {
+    const accessToken = sessionStorage.getItem('accessToken');
     return this.http
       .get<ResultByPage<Result>>(
-        `${env.apiUrl}/v1/${this.endpoint}/page/${page}/size/${limit}`
+        `${env.apiUrl}/v1/${this.endpoint}/page/${page}/size/${limit}`,
+        { headers: { Authorization: `Bearer ${accessToken}` } }
       )
       .pipe(map((resp: any) => resp.result.response));
   }

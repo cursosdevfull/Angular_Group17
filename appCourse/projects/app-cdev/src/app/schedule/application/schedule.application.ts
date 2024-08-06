@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { BaseApplication } from '../../core/application/base';
 import { ScheduleRepository } from '../domain/repositories/schedule.repository';
@@ -8,6 +8,9 @@ import {
   ScheduleResult,
 } from '../infrastructure/schedule.infrastructure';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class ScheduleApplication extends BaseApplication<
   Schedule,
   ScheduleResult,

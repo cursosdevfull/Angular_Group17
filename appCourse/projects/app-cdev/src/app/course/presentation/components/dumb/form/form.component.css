@@ -1,0 +1,24 @@
+.modal-course {
+  width: 600px;
+}
+
+.modal-course .mat-dialog-container {
+  padding: 0;
+}
+
+.modal-course .mat-dialog-content {
+  padding: 24px;
+  margin: 0;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 599px) {
+  .modal-course {
+    width: 95%;
+  }
+}

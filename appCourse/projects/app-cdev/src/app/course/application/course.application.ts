@@ -13,5 +13,5 @@ export class CourseApplication extends BaseApplication<
   CourseResult,
   CourseRepository
 > {
-  repository = inject(CourseInfrastructure);
+  protected repository = inject(CourseInfrastructure);
 }

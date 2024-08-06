@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 import { BaseComponent } from '../../../../../core/presentation/components/base/base.component';
 import { ContainerComponent } from '../../../../../shared/components/container/container.component';
@@ -6,7 +9,11 @@ import { PaginatorComponent } from '../../../../../shared/components/paginator/p
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { TitleComponent } from '../../../../../shared/components/title/title.component';
 import { TMetaColumns } from '../../../../../shared/interfaces/metacolumn';
-import { ICourse } from '../../../../interfaces/course.interface';
+import { CourseApplication } from '../../../../application/course.application';
+import { CourseRepository } from '../../../../domain/repositories/course.repository';
+import { Course } from '../../../../domain/roots/course';
+import { CourseResult } from '../../../../infrastructure/course.infrastructure';
+import { FormComponent } from '../../dumb/form/form.component';
 
 @Component({
   selector: 'cdev-page-course',
@@ -16,165 +23,38 @@ import { ICourse } from '../../../../interfaces/course.interface';
     TitleComponent,
     TableComponent,
     PaginatorComponent,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './page-course.component.html',
   styleUrl: './page-course.component.css',
 })
-export class PageCourseComponent extends BaseComponent<ICourse> {
-  dataOriginal: ICourse[] = [
-    {
-      id: 1,
-      title: 'Angular',
-      description: 'Curso de Angular',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 2,
-      title: 'React',
-      description: 'Curso de React',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 3,
-      title: 'Vue',
-      description: 'Curso de Vue',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 4,
-      title: 'Svelte',
-      description: 'Curso de Svelte',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 5,
-      title: 'Angular',
-      description: 'Curso de Angular',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 6,
-      title: 'React',
-      description: 'Curso de React',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 7,
-      title: 'Vue',
-      description: 'Curso de Vue',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 8,
-      title: 'Svelte',
-      description: 'Curso de Svelte',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 9,
-      title: 'Angular',
-      description: 'Curso de Angular',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 10,
-      title: 'React',
-      description: 'Curso de React',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 11,
-      title: 'Vue',
-      description: 'Curso de Vue',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 12,
-      title: 'Svelte',
-      description: 'Curso de Svelte',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 13,
-      title: 'Angular',
-      description: 'Curso de Angular',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 14,
-      title: 'React',
-      description: 'Curso de React',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 15,
-      title: 'Vue',
-      description: 'Curso de Vue',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 16,
-      title: 'Svelte',
-      description: 'Curso de Svelte',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 17,
-      title: 'Angular',
-      description: 'Curso de Angular',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 18,
-      title: 'React',
-      description: 'Curso de React',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 19,
-      title: 'Vue',
-      description: 'Curso de Vue',
-      duration: 40,
-      price: 100,
-    },
-    {
-      id: 20,
-      title: 'Svelte',
-      description: 'Curso de Svelte',
-      duration: 40,
-      price: 100,
-    },
-  ];
-
-  totalItems = this.dataOriginal.length;
+export class PageCourseComponent extends BaseComponent<
+  CourseResult,
+  Course,
+  CourseRepository,
+  CourseApplication
+> {
+  override application: CourseApplication = inject(CourseApplication);
 
   metaColumns: TMetaColumns = [
-    { field: 'id', header: 'ID' },
+    { field: 'courseId', header: 'ID' },
     { field: 'title', header: 'Título' },
-    { field: 'description', header: 'Descripción del curso' },
-    { field: 'duration', header: 'Duración' },
+    { field: 'slug', header: 'Ruta corta' },
+    { field: 'status', header: 'Estado' },
   ];
 
-  constructor() {
+  constructor(private readonly dialog: MatDialog) {
     super();
     this.loadPage(this.currentPage);
+  }
+
+  openModal(data: any = null) {
+    this.dialog.open(FormComponent, {
+      panelClass: 'modal-course',
+      disableClose: true,
+      data,
+    });
   }
 }

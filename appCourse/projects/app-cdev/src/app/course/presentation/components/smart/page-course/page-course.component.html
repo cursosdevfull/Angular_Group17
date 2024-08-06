@@ -1,4 +1,8 @@
-<cdev-title title="Course" icon="shopping_cart"></cdev-title>
+<cdev-title title="Course" icon="shopping_cart">
+  <button mat-raised-button color="primary" (click)="openModal()">
+    <mat-icon>add</mat-icon> Agregar
+  </button>
+</cdev-title>
 <cdev-container>
   <cdev-table [data]="data" [metaColumns]="metaColumns"></cdev-table>
   <div class="content-paginator">

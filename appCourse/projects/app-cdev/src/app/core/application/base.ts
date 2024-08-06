@@ -5,7 +5,7 @@ export abstract class BaseApplication<
   Result,
   Repository extends BaseRepository<Entity, Result>
 > {
-  abstract repository: Repository;
+  protected abstract repository: Repository;
 
   create(entity: Entity) {
     return this.repository.create(entity);
